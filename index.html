@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Portfolio | Archie</title>
+  <style>
+    /* --- GENERAL STYLES --- */
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: #081b29; color: #ededed;
+    }
+
+    /* --- HEADER & NAV --- */
+    header {
+      position: fixed; top: 0; left: 0; width: 100%;
+      background: #081b29; display: flex; justify-content: space-between;
+      align-items: center; padding: 20px 60px; z-index: 100;
+      border-bottom: 1px solid rgba(0, 171, 240, 0.1);
+    }
+    .logo {
+      font-size: 25px; color: #00abf0; font-weight: 600; text-decoration: none;
+    }
+    nav { display: flex; align-items: center; }
+    nav a {
+      color: #ededed; text-decoration: none; margin-left: 25px; 
+      font-size: 24px; transition: .3s; display: flex; align-items: center;
+      position: relative;
+    }
+    nav a:hover { color: #00abf0; transform: translateY(-3px); }
+
+    /* Tooltip */
+    nav a::after {
+      content: attr(data-title); position: absolute; bottom: -35px;
+      left: 50%; transform: translateX(-50%); font-size: 11px;
+      background: #00abf0; color: #081b29; padding: 2px 8px;
+      border-radius: 4px; opacity: 0; white-space: nowrap; transition: 0.3s;
+      pointer-events: none;
+    }
+    nav a:hover::after { opacity: 1; }
+
+    /* --- SECTIONS GENERAL --- */
+    section {
+      min-height: 100vh; padding: 100px 60px;
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;
+    }
+
+    /* --- BUTTONS --- */
+    .btn-box {
+      display: inline-block; padding: 12px 28px; background: #00abf0;
+      border-radius: 40px; font-size: 16px; color: #081b29;
+      text-decoration: none; font-weight: 600; letter-spacing: 1px;
+      transition: 0.3s; border: 2px solid #00abf0;
+      margin-top: 20px;
+    }
+    .btn-box:hover { background: transparent; color: #00abf0; box-shadow: 0 0 10px #00abf0; }
+
+    /* --- HOME --- */
+    .home-content { max-width: 600px; }
+    .home-content h1 { font-size: 45px; font-weight: 700; line-height: 1.2; }
+    .home-content h3 { font-size: 28px; font-weight: 700; color: #00abf0; }
+    .home-content p { margin: 20px 0 40px; font-size: 16px; }
+    .home-img {
+      width: 280px; height: 280px; border-radius: 50%; overflow: hidden;
+      border: 8px solid #00abf0; box-shadow: 0 0 30px #00abf0;
+    }
+    .home-img img { width: 100%; height: 100%; object-fit: cover; }
+
+    .social-icons a {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 40px; height: 40px; border: 2px solid #00abf0;
+      border-radius: 50%; font-size: 20px; color: #00abf0;
+      text-decoration: none; margin-right: 10px; transition: 0.3s;
+    }
+    .social-icons a:hover { background: #00abf0; color: #081b29; }
+
+    /* --- ABOUT --- */
+    .about { background: #0a2433; }
+    .about-content { max-width: 800px; }
+    .about-content h2 { font-size: 40px; margin-bottom: 20px; }
+    .about-content span { color: #00abf0; }
+    .about-content p { font-size: 16px; line-height: 1.6; }
+
+    /* --- RESUME --- */
+    .resume { 
+      background: #081b29; 
+      flex-direction: column; 
+      align-items: center; 
+      justify-content: center;
+    }
+    .resume h2 { font-size: 40px; margin-bottom: 40px; color: #00abf0; }
+    .resume-container {
+      width: 95%; max-width: 600px; background: rgba(15, 46, 65, 0.6);
+      padding: 60px 40px; border-radius: 25px; border: 1px solid rgba(0, 171, 240, 0.2);
+      text-align: center; backdrop-filter: blur(10px); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+    .resume-container p { color: #ccc; font-size: 18px; line-height: 1.6; margin-bottom: 35px; }
+    .resume-btns { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+
+    .cv-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 14px 28px; border-radius: 12px; font-size: 16px; font-weight: 600;
+      text-decoration: none; transition: 0.3s ease;
+    }
+    .view-cv-btn { border: 2px solid #6366f1; color: #6366f1; background: transparent; }
+    .view-cv-btn:hover { background: rgba(99, 102, 241, 0.1); transform: translateY(-3px); }
+    .download-cv-btn { background: #6366f1; color: #fff; box-shadow: 0 0 20px rgba(99, 102, 241, 0.4); }
+    .download-cv-btn:hover { background: #4f46e5; transform: translateY(-3px); box-shadow: 0 0 30px rgba(99, 102, 241, 0.7); }
+
+    /* --- PROJECTS & OUTPUTS --- */
+    .projects { background: #0a2433; flex-direction: column; text-align: center; }
+    .projects h2 { font-size: 40px; margin-bottom: 40px; color: #00abf0; }
+    .project-container { display: flex; justify-content: center; flex-wrap: wrap; gap: 30px; margin-bottom: 60px; }
+    .project-card {
+      background: #0f2e41; border-radius: 15px; width: 300px; overflow: hidden;
+      transition: 0.3s; box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+    .project-card:hover { transform: translateY(-10px); box-shadow: 0 0 20px #00abf0; }
+    .project-card img { width: 100%; height: 180px; object-fit: cover; }
+    .project-card .info { padding: 20px; }
+
+    /* Extra Outputs Section Styles */
+    .extra-outputs {
+      width: 100%; max-width: 900px; margin: 40px auto;
+      background: rgba(15, 46, 65, 0.4); padding: 50px 40px;
+      border-radius: 20px; border: 1px solid rgba(0, 171, 240, 0.1);
+      display: flex; flex-direction: column; align-items: center;
+    }
+    .outputs-list { text-align: left; width: 100%; margin-bottom: 40px; }
+    .outputs-list a { color: #ededed; text-decoration: none; transition: 0.3s; display: block; margin: 12px 0; font-size: 18px; }
+    .outputs-list a:hover { color: #00abf0; transform: translateX(10px); }
+
+    .cert-box {
+      border: 2px dashed rgba(0, 171, 240, 0.5); padding: 30px;
+      border-radius: 15px; background: rgba(8, 27, 41, 0.6);
+      width: 100%; max-width: 450px;
+    }
+    .cert-box img { 
+      display: block; margin: 25px auto 0; border-radius: 10px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.6); transition: 0.3s;
+    }
+    .cert-box img:hover { transform: scale(1.05); }
+
+    /* --- CONTACT --- */
+    .contact { background: #081b29; }
+    .contact h2 { font-size: 40px; }
+    .contact span { color: #00abf0; }
+    form { display: flex; flex-direction: column; width: 100%; max-width: 500px; margin-top: 20px;}
+    input, textarea {
+      background: #0f2e41; border: none; margin: 10px 0;
+      padding: 12px; border-radius: 5px; color: #ededed;
+    }
+    textarea { resize: none; height: 120px; }
+
+    footer { text-align: center; padding: 20px; background: #081b29; border-top: 1px solid #00abf0; }
+
+    /* --- RESPONSIVE --- */
+    @media (max-width: 768px) {
+      header { padding: 15px 30px; }
+      nav a { margin-left: 15px; font-size: 20px; }
+      section { padding: 100px 30px; flex-direction: column; text-align: center; }
+      .resume-btns { flex-direction: column; width: 100%; }
+      .cv-btn { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="#" class="logo">Portfolio</a>
+    <nav>
+      <a href="#home" data-title="Home"><ion-icon name="home-outline"></ion-icon></a>
+      <a href="#about" data-title="About"><ion-icon name="person-outline"></ion-icon></a>
+      <a href="#resume" data-title="Resume"><ion-icon name="document-text-outline"></ion-icon></a>
+      <a href="#projects" data-title="Projects"><ion-icon name="layers-outline"></ion-icon></a>
+      <a href="#contact" data-title="Contact"><ion-icon name="mail-outline"></ion-icon></a>
+    </nav>
+  </header>
+
+  <section id="home">
+    <div class="home-content">
+      <h3>Hello, It's Me</h3>
+      <h1>Archie</h1>
+      <h3>And I'm a <span style="color:#00abf0">Web Developer</span></h3>
+      <p>I am a 2nd Year IT student at Central Philippine State University, Moises Padilla Campus.</p>
+      <div class="social-icons">
+        <a href="https://www.instagram.com/archiechie49?igsh=MTBnNmRqcXdvNGticg=="><ion-icon name="logo-instagram"></ion-icon></a>
+        <a href="https://www.facebook.com/share/18Rod2mvoE/"><ion-icon name="logo-facebook"></ion-icon></a>
+        <a href="https://www.tiktok.com/@arch_ie_?_r=1&_t=ZS-95MpW78cqYO"><ion-icon name="logo-tiktok"></ion-icon></a>
+      </div>
+    </div>
+    <div class="home-img">
+      <img src="me.jpeg" alt="Archie Profile" />
+    </div>
+  </section>
+
+  <section class="about" id="about">
+    <div class="about-content">
+      <h2>About<span> Me</span></h2>
+      <h3>Archie</h3>
+      <p>I am an Information Technology student passionate about creating modern, responsive, and user-friendly websites. I specialize in HTML and CSS, and I love designing with Figma, Adobe Photoshop, and Premiere Pro.</p>
+      <a href="#projects" class="btn-box">View My Work</a>
+    </div>
+  </section>
+
+  <section id="resume" class="resume">
+    <h2>My <span>Resume</span></h2>
+    <div class="resume-container">
+      <p>Interested in working together? Take a look at my credentials below.</p>
+      <div class="resume-btns">
+        <a href="resume.jpg"
+           target="_blank" class="cv-btn view-cv-btn">
+            <ion-icon name="eye-outline"></ion-icon> View Resume
+        </a>
+        <a href="Archie_Resume.pdf" download="Archie_Resume.pdf" class="cv-btn download-cv-btn">
+            <ion-icon name="cloud-download-outline"></ion-icon> Download CV
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="projects" id="projects">
+    <h2>My <span>Projects</span></h2>
+    
+    <div class="project-container">
+      <div class="project-card">
+        <img src="Pic1.jpg" alt="Project 1"><div class="info"><h3>Banner</h3></div>
+      </div>
+      <div class="project-card">
+        <img src="pic2.jpg" alt="Project 2"><div class="info"><h3>Chess Board</h3></div>
+      </div>
+      <div class="project-card">
+        <img src="Pic3.jpg" alt="Project 3"><div class="info"><h3>Product</h3></div>
+      </div>
+      <div class="project-card">
+        <img src="Pic4.jpg" alt="Project 4"><div class="info"><h3>Video Editing</h3></div>
+      </div>
+      <div class="project-card">
+        <img src="Pic5.jpg" alt="Project 5"><div class="info"><h3>Figma E-commerce</h3></div>
+      </div>
+    </div>
+
+    <div class="extra-outputs">
+      <div class="outputs-list">
+        <h3 style="color:#00abf0; margin-bottom: 15px;">My  Outputs</h3>
+        <a href="https://www.canva.com/design/DAGvXzCmmHs/Cj0vVcJd5RvVqSg08JgaRA/view?utm_content=DAGvXzCmmHs&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h234ebfdd56" target="_blank">1. Canva Portfolio</a>
+        <a href="https://www.figma.com/proto/DO5FVLL9kcY6Wedmj7Io64/Archie?node-id=15-126" target="_blank">2. Figma Portfolio</a>
+        <a href="https://www.figma.com/proto/bawKcmgk1a1aXieNJKzF9j/Untitled?node-id=54-2" target="_blank">3. Figma E-Commerce</a>
+     <div class="cert-box">
+        <h3 style="color:#00abf0; text-align: center;">Certificate of Participation</h3>
+        <img src="Gabby.jpg" alt="Certificate" width="190">
+<img src="Okay.jpg" alt="Certificate" width="190">
+      </div>
+   
+   
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <div>
+      <h2>Contact <span>Me</span></h2>
+      <p>Let's work together! Feel free to contact me below.</p>
+      <form>
+        <input type="text" placeholder="Enter Your Name" required>
+        <input type="email" placeholder="Enter Your Email" required>
+        <textarea placeholder="Enter Your Message" required></textarea>
+        <button type="submit" class="btn-box" style="width: fit-content; border:none; cursor:pointer;">Submit</button>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    <p>Developed by Archie | © 2026</p>
+  </footer>
+
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>
+</html>
